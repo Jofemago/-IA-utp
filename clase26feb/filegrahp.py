@@ -89,8 +89,7 @@ def  DFS( graph):
                 stack.pop()
 
 def  DFS3( graph, v):
-'''recibe nodo inicial para grafos totalmente conexos, si no estan todos los nodos conectados
-    puee que queden nodos sin recorrer'''
+    '''recibe nodo inicial para grafos totalmente conexos, si no estan todos los nodos conectados puede que queden nodos sin recorrer'''
     stack = []
     nodes = graph.nodes()
     visitados = {}
