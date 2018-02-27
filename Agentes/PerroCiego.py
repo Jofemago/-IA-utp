@@ -1,7 +1,6 @@
 from aima3.agents import *
 
 
-
 class BlindDog(Agent):
     location = 1
 
@@ -77,6 +76,7 @@ class Park(Environment):
 
 park = Park()
 dog = BlindDog(program)
+#TraceAgent(dog)
 dogfood = Food()
 water = Water()
 park.add_thing(dog, 1)
