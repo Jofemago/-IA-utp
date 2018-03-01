@@ -40,6 +40,10 @@ class Graph(object):
 
 
 
+
+#--------------------------------------------------------------------------------
+
+
 def AllVisit(dict):
 
     for e in dict.keys():
@@ -114,6 +118,94 @@ def  DFS3( graph, v):
 
 
     #print(visitados)
+#----------------------------------------------------------------------------------------------------
+class Node:
+
+    def __init__(self):
+
+        self.Color = 'BLANCO'
+        self.distance = 99999999
+        self.conectividad = None
+
+    def setColor(self, color):
+
+        self.Color = color
+
+    def setDistance(self, d):
+
+        self.distance = d
+
+    def setConect(self, v):
+
+        self.conectividad = v
+
+
+    def GetColor(self):
+
+        return self.Color
+
+    def getConectividad(self):
+
+        return self.conectividad
+
+    def getDistance(self):
+
+        return self.distance
+
+
+
+def EcontrarNodosVisitados(vertices, s,d):#O(n)
+    '''se encarga de revisar los nodos por lo que tuvo que pasar el algoritmo BFS antes de llegar al destino d'''
+
+    j = d
+
+    print(d)
+    while(j != s):
+
+        j = vertices[j].getConectividad()
+        print(j)
+
+
+def BFS(g,v,d):
+
+    nodes = g.nodes()
+    vertices = {}# pareja de string con el nombre del nodo y una clase nodo que tiene toda la informacion incial que necesito de el
+    for n in nodes:
+        vertices[n] = Node()
+
+
+    vertices[v].setColor('GRIS')
+    vertices[v].setDistance(0)
+    #ya el nodo tiene conectividad nula
+
+    cola = []
+    cola.append(v)
+    #print(v)
+
+    while(len(cola) > 0):
+
+        u = cola.pop(0)
+        for nh in g.get(u).keys():
+
+            if vertices[nh].GetColor() == 'BLANCO':
+
+                vertices[nh].setColor('GRIS')
+                vertices[nh].setDistance(vertices[u].getDistance() + 1)
+                vertices[nh].setConect(u)
+
+
+                if nh == d:
+                    #print('se encontro')
+                    cola = []
+                    EcontrarNodosVisitados(vertices, v, d)
+                else:
+                    cola.append(nh)
+
+                #print(nh)
+
+        vertices[u].setColor('NEGRO')
+
+
 
 
 
@@ -121,28 +213,3 @@ def  DFS3( graph, v):
 def UndiretedGraph(dict = None):
 
     return Graph(dict = dict, directed = False)
-
-
-
-romania_map = UndiretedGraph(dict(
-    Arad = dict(Zerind = 75, Sibiu = 140, Timisoara = 118),
-    Bucharest = dict(Urziceni = 85, Pitesti = 101, Giurgiu = 90, Fagaras = 211),
-    Craiova = dict(Drobeta = 120, Rimnicu = 146, Pitesti = 138),
-    Drobeta = dict(Mehadia = 75),
-    Eforie =  dict(Hisora = 86),
-    Fagaras = dict(Sibiu = 99),
-    Hisora = dict(Urziceni = 98),
-    Iasi = dict(Vaslui = 92, Neamt = 87),
-    Lugoj = dict(Timisoara = 111, Mehadia = 70),
-    Oradea  = dict(Zerind = 71, Sibiu = 151),
-    Pitesti = dict(Rimnicu= 97),
-    Rimnicu = dict(Sibiu = 80),
-    Urziceni = dict(Vaslui = 142)
-
-
-))
-
-
-
-DFS3(romania_map,'Arad' )
-#print(romania_map.get('Urziceni').keys())
