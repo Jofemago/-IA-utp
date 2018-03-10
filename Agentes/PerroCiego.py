@@ -1,5 +1,5 @@
 from aima3.agents import *
-
+#copied by tests  of https://github.com/aimacode
 
 class BlindDog(Agent):
     location = 1
