@@ -124,7 +124,7 @@ class Node:
     def __init__(self):
 
         self.Color = 'BLANCO'
-        self.distance = 99999999
+        self.distance = float('inf')
         self.conectividad = None
 
     def setColor(self, color):
