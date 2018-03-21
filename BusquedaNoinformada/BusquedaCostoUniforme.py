@@ -38,12 +38,7 @@ def UniformCostSearch(initial, final, g):
                 #k = {nh}
                 frontier.put(child)
             '''if not k.issubset(explorer) and not vertices[nh].visited:
-
                 frontier.put(child)
             else:'''
-
-
-
-
 
     return (False, None)
