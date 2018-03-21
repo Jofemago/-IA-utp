@@ -2,9 +2,9 @@
 
 from Graph import *
 from romania import *
-#from BusquedaCostoUniforme import *
+from BusquedaCostoUniforme import *
 from BusquedaProfundidadLimitada import *
-
+from BusqProfundidadIter import *
 
 
 
@@ -14,7 +14,10 @@ from BusquedaProfundidadLimitada import *
 
 
 #Busqueda con profundidad limitada
-res = BPL('Sibiu', 'Neamt', romania_map,7)
+#res = BPL('Sibiu', 'Neamt', romania_map,0)
+
+#Busqueda con profundiad iterativa
+res = BPIter('Sibiu', 'Neamt', romania_map)
 l = []
 if res[0]:
     j = res[1][0][res[1][1]]
