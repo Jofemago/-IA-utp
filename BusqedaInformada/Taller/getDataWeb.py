@@ -13,6 +13,15 @@ def GetData(url):
 base = 'elib.zib.de/pub/mp-testdata/tsp/tsplib/tsp/'
 archivo = 'a280.tsp'
 data = str(GetData(base + archivo))
+a =data.replace('n', ',')
+b =a.replace('\\', '')
+
+j = b.split(',')
+
+
+
+
 f = open (archivo +'.txt','w')
-f.write(data)
+for elem in j:
+    f.write(elem + '\n')
 f.close()
