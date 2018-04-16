@@ -1,6 +1,5 @@
 b'NAME : a280
-COMMENT : drilli
-g problem (Ludwig)
+COMMENT : drilling problem (Ludwig)
 TYPE : TSP
 DIMENSION: 280
 EDGE_WEIGHT_TYPE : EUC_2D
