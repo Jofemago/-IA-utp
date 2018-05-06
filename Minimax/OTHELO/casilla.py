@@ -10,9 +10,17 @@ class Casilla:
 
 
     def __str__(self):
-        
-        strr = str(self.posX_) + '_' +str(self.posY_)
+
+        #strr = str(self.posX_) + '_' +str(self.posY_)
+        strr = " "
+        if self.esOcupada():
+            strr = str(self.ficha_)
+
         return strr
+
+    def getFicha(self):
+
+        return self.ficha_
 
 
     def setFicha(self, turno):
@@ -28,3 +36,7 @@ class Casilla:
         if(self.esOcupada()):
 
             self.ficha_.rotarFicha()
+
+    def getPos(self):
+
+        return (self.posX_ , self.posY_)

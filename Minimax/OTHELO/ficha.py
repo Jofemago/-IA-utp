@@ -11,3 +11,25 @@ class Ficha:
     def rotarFicha(self):
 
         self.color_ = self.color_ * -1
+
+    def esBlanco(self):
+
+        return self.color_ == -1
+
+    def esNegro(self):
+
+        return self.color_ == 1
+
+    def getColor(self):
+
+        return self.color_
+        
+    def __str__(self):
+
+        if self.esNegro():
+
+            return 'X'
+
+        if self.esBlanco():
+
+            return 'O'

@@ -5,16 +5,112 @@ class Othelo:
 
     N = 8
 
-    def __init__(self):
-        self.Nrofichas = 0
+    def __init__(self, turno = 1):
+
         self.tablero_ = [[Casilla(X,Y) for Y in range(0, self.N)] for X in range(0, self.N)]
-
+        self.confInicial()
+        self.NroFichas = 4
         #inicializar las 4 fichas
+        self.turno_ = 1
 
-    def prueba(self):
-        strr = ''
+
+
+    def makeJugada(self, jugada):
+
+        self.tablero_[jugada[0]][jugada[1]].setFicha(self.turno_)
+        self.NroFichas += 1
+        #self.turno_ = self.turno_ * -1
+
+        k = self.getAdjacentes(self.tablero_[jugada[0]][jugada[1]])
+        for pos in k:
+            if self.isOcupadaCasilla(pos):
+                cas = self.tablero_[pos[0]][pos[1]]
+                if cas.getFicha().getColor() != self.turno_ :
+                    cas.rotarFicha()
+
+        self.turno_ = self.turno_ * -1
+
+    def MostrarPosiblesMovimientos(self):
+
+        l = []
+        for i in range(self.N):
+            for j in range(self.N):
+
+                if self.tablero_[i][j].esOcupada():
+
+                    k = self.getAdjacentes(self.tablero_[i][j])
+                    for pos in k:
+                        if not self.isOcupadaCasilla(pos):
+                            l.append(pos)
+        l = set(l)
+        print('los posibles movimientios: ')
+        for e in l:
+            print(e)
+
+
+
+    def isOcupadaCasilla(self, pos):
+
+        return self.tablero_[pos[0]][pos[1]].esOcupada()
+
+    def getAdjacentes(self, casilla):
+
+        l = []
+        pos = casilla.getPos()
+
+        l.append(( pos[0] , pos[1] - 1)) #izq
+        l.append(( pos[0] , pos[1] + 1)) #der
+        l.append(( pos[0] - 1 , pos[1] )) #arr
+        l.append(( pos[0] + 1 , pos[1] )) #abj
+
+        l.append(( pos[0] -1   , pos[1] -1 )) #izqarr
+        l.append(( pos[0] + 1 , pos[1] - 1)) #izqabj
+        l.append(( pos[0] - 1, pos[1] + 1)) #derarr
+        l.append(( pos[0] + 1, pos[1] + 1 )) #deraba
+
+
+        return [e for e in l if e[0] <= 7 and e[0] >= 0 and  e[1] <= 7 and e[1] >= 0  ]
+
+
+
+    def mostrarTurno(self):
+
+        if self.turno_ == 1:
+            print('juega Negro')
+        if self.turno_ == -1:
+            print('juega Blanco')
+
+    def confInicial(self):
+        '''define la cofiguraacion inicial'''
+
+        turno = -1
+        for i in range(3,5):
+            for j in range(3,5):
+
+                self.tablero_[i][j].setFicha(turno)
+                turno = turno *-1
+            turno = turno *-1
+
+    def gameOver(self):
+
+        return self.NroFichas == 64
+
+    def __str__(self):
+
+        strr = '# # # # # # # # ' + '\n'
         for i in range(8):
             for j in range(8):
                 strr += str(self.tablero_[i][j]) + ' '
             strr += '\n'
-        print(strr)
+
+        strr += '# # # # # # # # ' + '\n'
+        return strr
+
+"""
+    def prueba(self):
+        strr = ''
+        for i in range(8):
+            for j in range(8):
+                strr += str(self.tablero_[i][j])
+            strr += '\n'
+        print(strr)"""
