@@ -2,15 +2,15 @@ from ficha import Ficha
 from casilla import Casilla
 from othelo import Othelo
 
-
-def Getjugada():
+def Getjugada(l):
 
     x = input('escoja la fila: ')
     y = input('escoja la columna: ')
-
+    if (x<0 or x > 7 or y<0 or y>7) or ((x,y) not in l):
+        print ('jugada no valida intente de nuevo')
+        Getjugada(l)
     #print(x,y)
     return (int(x), int(y))
-
 if __name__=="__main__":
 
     ot = Othelo()
@@ -22,7 +22,10 @@ if __name__=="__main__":
         print(ot)
         ot.mostrarTurno()
         ot.MostrarPosiblesMovimientos()
-        jugada = Getjugada()
+        l = ot.RetornarPosiblesMovimientos()
+        jugada = Getjugada(l)
         ot.makeJugada(jugada)
+
     print(ot)
+    ot.CalcularGanador()
     #calcular quien gano

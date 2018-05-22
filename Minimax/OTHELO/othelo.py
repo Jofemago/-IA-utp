@@ -41,13 +41,52 @@ class Othelo:
                     k = self.getAdjacentes(self.tablero_[i][j])
                     for pos in k:
                         if not self.isOcupadaCasilla(pos):
+                            #calcular si es valida las pos
                             l.append(pos)
         l = set(l)
         print('los posibles movimientios: ')
         for e in l:
             print(e)
 
+    def calcularValidez(self, pos, x, y):
 
+        i = pos[0]
+        j = pos[1]
+        itera = (pos[0] + x , pos[1] + y )
+        color = False
+        while(self.inbordes(itera)):
+
+            if not self.isOcupadaCasilla(itera):
+                return False
+            if self.tablero_[itera[0]][itera[1]].getFicha().getColor == self.turno_ and not color:
+                return False
+            elif self.tablero_[itera[0]][itera[1]].getFicha().getColor != self.turno_:
+                color = True
+                itera = (itera[0] + x , itera[1] + y )
+                #continuar
+
+
+        return True
+
+    def inbordes(self, pos):
+
+        return pos[0] >= 0 and pos[0] <= 7 and pos[1] >= 0 and pos[1] <= 7
+
+
+    def RetornarPosiblesMovimientos(self):
+
+        l = []
+        for i in range(self.N):
+            for j in range(self.N):
+
+                if self.tablero_[i][j].esOcupada():
+
+                    k = self.getAdjacentes(self.tablero_[i][j])
+                    for pos in k:
+                        if not self.isOcupadaCasilla(pos):
+                            l.append(pos)
+        l = set(l)
+        return l
 
     def isOcupadaCasilla(self, pos):
 
@@ -106,6 +145,23 @@ class Othelo:
         strr += '# # # # # # # # ' + '\n'
         return strr
 
+
+    def CalcularGanador(self):
+
+        b = 0
+        n = 0
+        for i in range(self.N):
+            for j in range(self.N):
+                if self.tablero_[i][j].ficha_.esNegro():
+                    n += 1
+                elif self.tablero_[i][j].ficha_.esBlanco():
+                    b += 1
+        if b > n:
+            print ('han ganado las fichas blancas !!!')
+        elif n > b:
+            print ('han ganado las fichas negras !!!')
+        else:
+            print('empate !!!')
 """
     def prueba(self):
         strr = ''
